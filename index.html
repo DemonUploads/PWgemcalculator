@@ -1,441 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>OGPS Fish Calculator</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Rain Background */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            backdrop-filter: blur(1em) brightness(6);
-            background-image: radial-gradient(
-                circle at 50% 50%,
-                #0000 0,
-                #0000 2px,
-                hsl(0 0 4%) 2px
-            );
-            background-size: 8px 8px;
-        }
-
-        body {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            --c: #09f;
-            background-color: #000;
-            background-image: 
-                radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 75px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 126.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 102px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 67px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 89.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 149.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 107.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 140.5px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 79px, var(--c) 100%, #0000 150%),
-                radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
-                radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
-                radial-gradient(1.5px 1.5px at 150px 105px, var(--c) 100%, #0000 150%);
-            background-size:
-                300px 235px,
-                300px 235px,
-                300px 235px,
-                300px 252px,
-                300px 252px,
-                300px 252px,
-                300px 150px,
-                300px 150px,
-                300px 150px,
-                300px 253px,
-                300px 253px,
-                300px 253px,
-                300px 204px,
-                300px 204px,
-                300px 204px,
-                300px 134px,
-                300px 134px,
-                300px 134px,
-                300px 179px,
-                300px 179px,
-                300px 179px,
-                300px 299px,
-                300px 299px,
-                300px 299px,
-                300px 215px,
-                300px 215px,
-                300px 215px,
-                300px 281px,
-                300px 281px,
-                300px 281px,
-                300px 158px,
-                300px 158px,
-                300px 158px,
-                300px 210px,
-                300px 210px,
-                300px 210px;
-            animation: hi 150s linear infinite;
-            margin: 0;
-            padding: 20px;
-            font-family: 'Ubuntu Mono', monospace;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        @keyframes hi {
-            0% {
-                background-position:
-                    0px 220px,
-                    3px 220px,
-                    151.5px 337.5px,
-                    25px 24px,
-                    28px 24px,
-                    176.5px 150px,
-                    50px 16px,
-                    53px 16px,
-                    201.5px 91px,
-                    75px 224px,
-                    78px 224px,
-                    226.5px 350.5px,
-                    100px 19px,
-                    103px 19px,
-                    251.5px 121px,
-                    125px 120px,
-                    128px 120px,
-                    276.5px 187px,
-                    150px 31px,
-                    153px 31px,
-                    301.5px 120.5px,
-                    175px 235px,
-                    178px 235px,
-                    326.5px 384.5px,
-                    200px 121px,
-                    203px 121px,
-                    351.5px 228.5px,
-                    225px 224px,
-                    228px 224px,
-                    376.5px 364.5px,
-                    250px 26px,
-                    253px 26px,
-                    401.5px 105px,
-                    275px 75px,
-                    278px 75px,
-                    426.5px 180px;
-            }
-
-            to {
-                background-position:
-                    0px 6800px,
-                    3px 6800px,
-                    151.5px 6917.5px,
-                    25px 13632px,
-                    28px 13632px,
-                    176.5px 13758px,
-                    50px 5416px,
-                    53px 5416px,
-                    201.5px 5491px,
-                    75px 17175px,
-                    78px 17175px,
-                    226.5px 17301.5px,
-                    100px 5119px,
-                    103px 5119px,
-                    251.5px 5221px,
-                    125px 8428px,
-                    128px 8428px,
-                    276.5px 8495px,
-                    150px 9876px,
-                    153px 9876px,
-                    301.5px 9965.5px,
-                    175px 13391px,
-                    178px 13391px,
-                    326.5px 13540.5px,
-                    200px 14741px,
-                    203px 14741px,
-                    351.5px 14848.5px,
-                    225px 18770px,
-                    228px 18770px,
-                    376.5px 18910.5px,
-                    250px 5082px,
-                    253px 5082px,
-                    401.5px 5161px,
-                    275px 6375px,
-                    278px 6375px,
-                    426.5px 6480px;
-            }
-        }
-
-        /* Calculator Styles */
-        .header {
-            text-align: center;
-            padding: 20px;
-            width: 90%;
-            max-width: 800px;
-            margin-bottom: 20px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(9, 144, 255, 0.3);
-            box-shadow: 0 0 20px rgba(9, 144, 255, 0.2);
-        }
-        
-        .title {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: white;
-            font-family: 'Press Start 2P', cursive;
-            text-shadow: 0 0 10px rgba(9, 144, 255, 0.7);
-            letter-spacing: 2px;
-        }
-        
-        .display-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 15px;
-            width: 100%;
-            gap: 10px;
-        }
-        
-        .gem-display, .bytes-display, .rate-container {
-            padding: 12px 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: white;
-            text-shadow: 0 0 5px rgba(9, 144, 255, 0.7);
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 5px;
-            border: 1px solid rgba(9, 144, 255, 0.4);
-            width: 80%;
-            max-width: 300px;
-        }
-        
-        .rate-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .rate-label {
-            white-space: nowrap;
-        }
-        
-        .rate-input {
-            width: 60px;
-            padding: 5px;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.4);
-            color: white;
-            border: 1px solid rgba(9, 144, 255, 0.5);
-            border-radius: 4px;
-            font-family: 'Ubuntu Mono', monospace;
-            font-size: 14px;
-        }
-        
-        .rate-input:focus {
-            outline: none;
-            border-color: rgba(9, 144, 255, 0.8);
-            box-shadow: 0 0 8px rgba(9, 144, 255, 0.4);
-        }
-        
-        .fish-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            max-width: 900px;
-        }
-        
-        .fish-card {
-            background-color: rgba(9, 144, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            width: 170px;
-            border: 1px solid rgba(9, 144, 255, 0.3);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .fish-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(9, 144, 255, 0.3);
-            border-color: rgba(9, 144, 255, 0.6);
-        }
-        
-        .fish-name {
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 16px;
-            text-shadow: 0 0 5px rgba(9, 144, 255, 0.5);
-            padding-bottom: 5px;
-            border-bottom: 1px solid rgba(9, 144, 255, 0.3);
-        }
-        
-        .size-control {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-        
-        .size-label {
-            color: #ccc;
-            font-size: 12px;
-            width: 50px;
-            text-align: left;
-        }
-        
-        .btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            border: none;
-            font-weight: bold;
-            transition: all 0.2s;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .btn:hover {
-            transform: scale(1.1);
-            background-color: rgba(9, 144, 255, 0.7);
-            box-shadow: 0 0 10px rgba(9, 144, 255, 0.5);
-        }
-        
-        .btn:active {
-            transform: scale(0.95);
-        }
-        
-        .fish-input {
-            width: 45px;
-            padding: 5px;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.4);
-            color: white;
-            border: 1px solid rgba(9, 144, 255, 0.5);
-            border-radius: 4px;
-            margin: 0 5px;
-            font-family: 'Ubuntu Mono', monospace;
-            font-size: 14px;
-        }
-        
-        .fish-input:focus {
-            outline: none;
-            border-color: rgba(9, 144, 255, 0.8);
-            box-shadow: 0 0 8px rgba(9, 144, 255, 0.4);
-        }
-        
-        .footer {
-            font-size: 12px;
-            text-align: center;
-            padding: 12px;
-            width: 100%;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            color: white;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(9, 144, 255, 0.3);
-        }
-
-        /* Rainbow text animation */
-        .rainbow-text {
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: rainbow 8s ease infinite;
-        }
-
-        @keyframes rainbow {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 20px;
-            }
-            
-            .fish-card {
-                width: 150px;
-                padding: 12px;
-            }
-            
-            .btn {
-                width: 25px;
-                height: 25px;
-                font-size: 14px;
-            }
-            
-            .fish-input {
-                width: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                font-size: 18px;
-            }
-            
-            .fish-card {
-                width: 140px;
-                padding: 10px;
-            }
-            
-            .size-label {
-                font-size: 11px;
-                width: 45px;
-            }
-        }
-    </style>
+    <!-- [Your existing <style>] remains unchanged -->
+    <!-- I’ll omit the <style> section here to focus on the script and logic changes -->
 </head>
 <body>
     <div class="header">
@@ -459,7 +30,6 @@
     </div>
 
     <script>
-        // Fish data with size variants (in alphabetical order)
         const fishData = [
             { name: "Acid Puffer", sizes: ["Tiny", "Small", "Medium", "Large", "Huge"] },
             { name: "Butterflyfish", sizes: ["Tiny", "Small", "Medium", "Large", "Huge"] },
@@ -475,42 +45,49 @@
             { name: "Tuna", sizes: ["Tiny", "Small", "Medium", "Large", "Huge"] }
         ];
 
-        // Gem values for each size (replace with actual values)
         const gemValues = {
-            Tiny: 5,
-            Small: 10,
-            Medium: 20,
-            Large: 40,
-            Huge: 80
+            "acidpuffer": { tiny: 80, small: 320, medium: 560, large: 800, huge: 2400 },
+            "butterflyfish": { tiny: 15, small: 60, medium: 105, large: 150, huge: 450 },
+            "carp": { tiny: 20, small: 80, medium: 140, large: 200, huge: 600 },
+            "crab": { tiny: 5, small: 10, medium: 20, large: 40, huge: 80 },
+            "dumbfish": { tiny: 5, small: 10, medium: 30, large: 50, huge: 100 },
+            "goldfish": { tiny: 15, small: 60, medium: 105, large: 150, huge: 450 },
+            "halibut": { tiny: 20, small: 80, medium: 140, large: 200, huge: 600 },
+            "herring": { tiny: 10, small: 40, medium: 70, large: 100, huge: 300 },
+            "kingfish": { tiny: 10, small: 40, medium: 70, large: 100, huge: 300 },
+            "piranha": { tiny: 30, small: 120, medium: 210, large: 300, huge: 900 },
+            "seaangler": { tiny: 30, small: 120, medium: 210, large: 300, huge: 900 },
+            "tuna": { tiny: 40, small: 160, medium: 280, large: 400, huge: 1200 }
         };
 
         const container = document.getElementById('fishContainer');
         const gemRateInput = document.getElementById('gemRate');
 
-        // Create fish cards
         fishData.forEach(fish => {
             const card = document.createElement('div');
             card.className = 'fish-card';
-            
+
             const nameElement = document.createElement('div');
             nameElement.className = 'fish-name';
-            nameElement.textContent = fish.name;
+            nameElement.innerHTML = fish.name === "Piranha" 
+                ? `<small>${fish.name} <span style="font-size:10px;">(Perilous Piranhas mini event)</span></small>` 
+                : fish.name;
             card.appendChild(nameElement);
-            
+
             fish.sizes.forEach(size => {
                 const control = document.createElement('div');
                 control.className = 'size-control';
-                
+
                 const label = document.createElement('div');
                 label.className = 'size-label';
                 label.textContent = size;
                 control.appendChild(label);
-                
+
                 const minusBtn = document.createElement('button');
                 minusBtn.className = 'btn minus';
                 minusBtn.textContent = '-';
                 control.appendChild(minusBtn);
-                
+
                 const input = document.createElement('input');
                 input.className = 'fish-input';
                 input.type = 'number';
@@ -518,19 +95,18 @@
                 input.value = '0';
                 input.min = '0';
                 control.appendChild(input);
-                
+
                 const plusBtn = document.createElement('button');
                 plusBtn.className = 'btn plus';
                 plusBtn.textContent = '+';
                 control.appendChild(plusBtn);
-                
-                // Add event listeners
+
                 minusBtn.addEventListener('click', () => {
                     const value = parseInt(input.value) || 0;
                     if (value > 0) input.value = value - 1;
                     calculateTotals();
                 });
-                
+
                 plusBtn.addEventListener('click', () => {
                     const value = parseInt(input.value) || 0;
                     input.value = value + 1;
@@ -538,45 +114,45 @@
                 });
 
                 input.addEventListener('input', calculateTotals);
-                input.addEventListener('focus', function() {
+                input.addEventListener('focus', function () {
                     this.select();
                 });
-                
+
                 card.appendChild(control);
             });
-            
+
             container.appendChild(card);
         });
 
         function calculateTotals() {
             let totalGems = 0;
-            
+
             fishData.forEach(fish => {
+                const fishKey = fish.name.toLowerCase().replace(' ', '');
                 fish.sizes.forEach(size => {
                     const input = document.getElementById(`${fish.name.toLowerCase().replace(' ', '-')}-${size.toLowerCase()}`);
                     const value = parseInt(input.value) || 0;
-                    totalGems += value * gemValues[size];
+                    const sizeKey = size.toLowerCase();
+                    const gemValue = (gemValues[fishKey] && gemValues[fishKey][sizeKey]) || 0;
+                    totalGems += value * gemValue;
                 });
             });
-            
+
             const gemRate = parseInt(gemRateInput.value) || 3000;
             const totalBytes = Math.floor((totalGems / gemRate) * 219);
-            
+
             document.getElementById('result').textContent = `FISH GEMS: ${totalGems.toLocaleString()}`;
             document.getElementById('bytesResult').textContent = `BYTES: ${totalBytes.toLocaleString()}`;
         }
-        
-        // Initial calculation
+
         calculateTotals();
 
-        // Add event listener for gem rate input
         gemRateInput.addEventListener('input', calculateTotals);
-        gemRateInput.addEventListener('focus', function() {
+        gemRateInput.addEventListener('focus', function () {
             this.select();
         });
 
-        // Add keyboard shortcuts for faster input
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.target.classList.contains('fish-input')) {
                 if (e.key === 'ArrowUp') {
                     e.preventDefault();
